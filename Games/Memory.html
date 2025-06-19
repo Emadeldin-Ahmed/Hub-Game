@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Memory Game</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #fef6e4;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .card {
+      width: 80px;
+      height: 80px;
+      background: #ccc;
+      font-size: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 Memory Game</h1>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const emojis = ['🍕','🍕','🐶','🐶','🚀','🚀','🎮','🎮'];
+    const shuffled = emojis.sort(() => 0.5 - Math.random());
+    const grid = document.getElementById("grid");
+    let firstCard = null;
+    let secondCard = null;
+    let lock = false;
+
+    shuffled.forEach((emoji, i) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.dataset.emoji = emoji;
+      card.textContent = "❓";
+      card.addEventListener("click", () => {
+        if (lock || card === firstCard || card.textContent !== "❓") return;
+        card.textContent = emoji;
+        if (!firstCard) {
+          firstCard = card;
+        } else {
+          secondCard = card;
+          lock = true;
+          setTimeout(() => {
+            if (firstCard.dataset.emoji === secondCard.dataset.emoji) {
+              firstCard.style.background = "#8bc34a";
+              secondCard.style.background = "#8bc34a";
+            } else {
+              firstCard.textContent = "❓";
+              secondCard.textContent = "❓";
+            }
+            firstCard = secondCard = null;
+            lock = false;
+          }, 700);
+        }
+      });
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
