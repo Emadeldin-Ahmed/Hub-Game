@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dunk Game</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+      margin-top: 100px;
+      background: #f2f2f2;
+    }
+    #hoop {
+      width: 100px;
+      height: 10px;
+      background: red;
+      margin: 20px auto;
+    }
+    #ball {
+      width: 30px;
+      height: 30px;
+      background: orange;
+      border-radius: 50%;
+      position: relative;
+      top: 0;
+      transition: top 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>🏀 Dunk Game</h1>
+  <div id="hoop"></div>
+  <div id="ball"></div>
+  <p>Tap the ball to dunk!</p>
+
+  <script>
+    const ball = document.getElementById("ball");
+    ball.addEventListener("click", () => {
+      ball.style.top = "80px";
+      setTimeout(() => {
+        ball.style.top = "0px";
+      }, 300);
+    });
+  </script>
+</body>
+</html>
