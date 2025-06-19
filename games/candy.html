@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Candy Catch</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fff3e0;
+    }
+    #bucket {
+      width: 60px;
+      height: 20px;
+      background: brown;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .candy {
+      width: 20px;
+      height: 20px;
+      background: pink;
+      position: absolute;
+      top: 0;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div id="bucket"></div>
+  <script>
+    const bucket = document.getElementById("bucket");
+    let candies = [];
+
+    function dropCandy() {
+      const candy = document.createElement("div");
+      candy.classList.add("candy");
+      candy.style.left = Math.random() * (window.innerWidth - 20) + "px";
+      document.body.appendChild(candy);
+      candies.push(candy);
+    }
+
+    function moveCandies() {
+      candies.forEach((candy, i) => {
+        const top = parseInt(candy.style.top || "0");
+        candy.style.top = top + 5 + "px";
+
+        const candyRect = candy.getBoundingClientRect();
+        const bucketRect = bucket.getBoundingClientRect();
+
+        if (
+          candyRect.bottom >= bucketRect.top &&
+          candyRect.left >= bucketRect.left &&
+          candyRect.right <= bucketRect.right
+        ) {
+          candy.remove();
+          candies.splice(i, 1);
+        }
+
+        if (top > window.innerHeight) {
+          candy.remove();
+          candies.splice(i, 1);
+        }
+      });
+    }
+
+    document.addEventListener("mousemove", e => {
+      bucket.style.left = e.clientX - 30 + "px";
+    });
+
+    setInterval(dropCandy, 1000);
+    setInterval(moveCandies, 50);
+  </script>
+</body>
+</html>
