@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flip Game</title>
+  <style>
+    body {
+      text-align: center;
+      margin-top: 100px;
+      font-family: Arial;
+      background: #e0f7fa;
+    }
+    #character {
+      width: 60px;
+      height: 60px;
+      background: purple;
+      margin: 0 auto;
+      transition: transform 0.6s ease;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤸 Flip Game</h1>
+  <div id="character"></div>
+  <button onclick="flip()">Flip!</button>
+
+  <script>
+    let flipped = false;
+    function flip() {
+      flipped = !flipped;
+      document.getElementById("character").style.transform = 
+        flipped ? "rotateY(180deg)" : "rotateY(0deg)";
+    }
+  </script>
+</body>
+</html>
